@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import math
 
-def evaluate_and_visualize(model, X_train, X_test, y_train, y_test, scaler, time_step=100):
+def evaluate_and_visualize(model, X_train, X_test, y_train, y_test, scaler, scaled_values, time_step=100):
     # Make predictions
     train_predict = model.predict(X_train)
     test_predict = model.predict(X_test)
@@ -38,9 +38,9 @@ def evaluate_and_visualize(model, X_train, X_test, y_train, y_test, scaler, time
     plt.show()
 
 if __name__ == "__main__":
-    from data_preprocessing import load_and_preprocess_data
-    from model_training import build_and_train_model
+    from Preprocess import load_and_preprocess_data
+    from LSTMtrain import build_and_train_model
     
     X_train, X_test, y_train, y_test, scaler = load_and_preprocess_data('time_series_data.csv')
     model = build_and_train_model(X_train, y_train)
-    evaluate_and_visualize(model, X_train, X_test, y_train, y_test, scaler)
+    evaluate_and_visualize(model, X_train, X_test, y_train, y_test, scaler, X_train)  # Pass scaled_values argument
